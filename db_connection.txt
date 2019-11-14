@@ -1,0 +1,5 @@
+Endpoint & port
+Endpoint
+database-1.ce8t09dcafmv.eu-west-1.rds.amazonaws.com
+Port
+5432
