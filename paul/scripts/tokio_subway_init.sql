@@ -40,14 +40,14 @@ drop index STATION_PK;
 drop table IF EXISTS STATION CASCADE;
 /*
 drop index CHARGESTCARDS_FK;
-/*
+
 drop index TICKETCARD_PK;
 */
 drop table IF EXISTS TICKETCARD CASCADE;
 /*
 drop index ZONE_PK;
 */
-drop table IF EXISTSZONE CASCADE;
+drop table IF EXISTS ZONE CASCADE;
 
 /*==============================================================*/
 /* Table: JOURNEY                                               */
@@ -217,7 +217,7 @@ ZONEID
 /* Table: ZONE                                                  */
 /*==============================================================*/
 create table ZONE (
-   ZONEID               SERIAL               not null,
+   ZONEID               SERIAL               not null,				-- type changed from serial
    ZONEPRICE            NUMERIC(4)           not null,
    ZONEPRICEREDUCED     NUMERIC(4)           not null,
    STATIONCOUNT         NUMERIC(2)           not null,
