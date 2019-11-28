@@ -1,23 +1,23 @@
-stationname,stationnumber,stationid,linename,junctionid
-Shinjuku,01,1,Shinjuku,2
-Shinjuku-sanchome,02,2,Shinjuku,3
-Iwamotocho,08,3,Shinjuku,7
-Motoyawata,21,4,Shinjuku,
-Wakoshi,01,5,Fukutoshin,
-Ikebukoro,09,6,Fukutoshin,1
-Shinjuku-sanchome,13,7,Fukutoshin,3
-Shibuya,16,8,Fukutoshin,4
-Shibuya,01,9,Ginza,4
-Shimbashi,08,10,Ginza,5
-Kanda,13,11,Ginza,6
-Ueno,16,12,Ginza,8
-Asakusa,19,13,Ginza,
-Ueno,05,14,JR Yamanote,8
-Uguisudani,06,15,JR Yamanote,
-Otsuka,12,16,JR Yamanote,
-Ikebukoro,13,17,JR Yamanote,1
-Shinjuku,17,18,JR Yamanote,2
-Shibuya,20,19,JR Yamanote,4
-Shimbashi,28,20,JR Yamanote,5
-Kanda,02,21,JR Yamanote,6
-Akihabara,03,22,JR Yamanote,7
+r_name,number,name,j_id
+Shinjuku,01,Shinjuku,2
+Shinjuku-sanchome,02,Shinjuku,3
+Iwamotocho,08,Shinjuku,7
+Motoyawata,21,Shinjuku,
+Wakoshi,01,Fukutoshin,
+Ikebukoro,09,Fukutoshin,1
+Shinjuku-sanchome,13,Fukutoshin,3
+Shibuya,16,Fukutoshin,4
+Shibuya,01,Ginza,4
+Shimbashi,08,Ginza,5
+Kanda,13,Ginza,6
+Ueno,16,Ginza,8
+Asakusa,19,Ginza,
+Ueno,05,JR Yamanote,8
+Uguisudani,06,JR Yamanote,
+Otsuka,12,JR Yamanote,
+Ikebukoro,13,JR Yamanote,1
+Shinjuku,17,JR Yamanote,2
+Shibuya,20,JR Yamanote,4
+Shimbashi,28,JR Yamanote,5
+Kanda,02,JR Yamanote,6
+Akihabara,03,JR Yamanote,7

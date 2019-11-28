@@ -1,4 +1,4 @@
-zoneid,zoneprice,zonepricereduced,stationcount
+z_name,price_a,price_c,max_stations
 1,150,75,5
 2,290,145,10
 3,420,210,15
