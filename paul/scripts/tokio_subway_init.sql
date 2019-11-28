@@ -266,6 +266,7 @@ alter table STATION
       references LINE (LINENAME)
       on delete restrict on update restrict;
 
+
 alter table TICKETCARD
    add constraint FK_TICKETCA_CHARGESTC_ZONE foreign key (ZONEID)
       references ZONE (ZONEID)
