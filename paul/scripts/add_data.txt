@@ -4,6 +4,12 @@ COPY "zone" FROM 'E:\Dokumente\git\uni-datenbanken1\paul\scripts\data\zones.cvs'
 COPY "junction" FROM 'E:\Dokumente\git\uni-datenbanken1\paul\scripts\data\junctions.cvs' DELIMITER ',' CSV HEADER;
 COPY "station" FROM 'E:\Dokumente\git\uni-datenbanken1\paul\scripts\data\stations.cvs' DELIMITER ',' CSV HEADER;
 
+C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data
+COPY "operator" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\operators.cvs' DELIMITER ',' CSV HEADER;
+COPY "line" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\lines.cvs' DELIMITER ',' CSV HEADER;
+COPY "zone" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\zones.cvs' DELIMITER ',' CSV HEADER;
+COPY "junction" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\junctions.cvs' DELIMITER ',' CSV HEADER;
+COPY "station" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\stations.cvs' DELIMITER ',' CSV HEADER;
 
 -- alternative:
 --BULK INSERT tokyo_data
