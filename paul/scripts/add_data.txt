@@ -5,11 +5,11 @@ COPY "junction" FROM 'E:\Dokumente\git\uni-datenbanken1\paul\scripts\data\juncti
 COPY "station" FROM 'E:\Dokumente\git\uni-datenbanken1\paul\scripts\data\stations.cvs' DELIMITER ',' CSV HEADER;
 
 C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data
-COPY "operator" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\operators.cvs' DELIMITER ',' CSV HEADER;
-COPY "line" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\lines.cvs' DELIMITER ',' CSV HEADER;
-COPY "zone" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\zones.cvs' DELIMITER ',' CSV HEADER;
-COPY "junction" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\junctions.cvs' DELIMITER ',' CSV HEADER;
-COPY "station" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\stations.cvs' DELIMITER ',' CSV HEADER;
+COPY "operator" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\operators.csv.txt' DELIMITER ',' CSV HEADER;
+COPY "line" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\lines.csv.txt' DELIMITER ',' CSV HEADER;
+COPY "zone" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\zones.csv.txt' DELIMITER ',' CSV HEADER;
+COPY "junction" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\junctions.csv.txt' DELIMITER ',' CSV HEADER;
+COPY "station" FROM 'C:\Users\pmoeller\workspace\uni-datenbanken1\paul\scripts\data\stations.csv.txt' DELIMITER ',' CSV HEADER;
 
 -- alternative:
 --BULK INSERT tokyo_data

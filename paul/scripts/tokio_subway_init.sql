@@ -54,10 +54,10 @@ drop table IF EXISTS ZONE CASCADE;
 /*==============================================================*/
 create table JOURNEY (
    JOURNEYID            SERIAL               not null,
-   STATIONID            INT4                 null,
+   ENDSTATIONID            INT4                 null,
    OPERATORNAME         VARCHAR(30)          not null,
    TICKETID             INT4                 not null,
-   STATION_STATIONID    INT4                 not null,
+   STARTSTATIONID    INT4                 not null,
    JOURNEYDATE          DATE                 not null,
    REDUCEDPRICE         BOOL                 not null,
    PRICE                MONEY                not null,
@@ -75,14 +75,14 @@ JOURNEYID
 /* Index: STARTSTATION_FK                                       */
 /*==============================================================*/
 create  index STARTSTATION_FK on JOURNEY (
-STATION_STATIONID
+STARTSTATIONID
 );
 
 /*==============================================================*/
 /* Index: DESTINATIONSTATION_FK                                 */
 /*==============================================================*/
 create  index DESTINATIONSTATION_FK on JOURNEY (
-STATIONID
+ENDSTATIONID
 );
 
 /*==============================================================*/
@@ -161,17 +161,17 @@ OPERATORNAME
 create table STATION (
    STATIONNAME          VARCHAR(30)          not null,
    STATIONNUMBER        NUMERIC(2)           not null,
-   STATIONID            SERIAL               not null,
+   ENDSTATIONID            SERIAL               not null,
    LINENAME             VARCHAR(15)          not null,
    JUNCTIONID           INT4                 null,
-   constraint PK_STATION primary key (STATIONID)
+   constraint PK_STATION primary key (ENDSTATIONID)
 );
 
 /*==============================================================*/
 /* Index: STATION_PK                                            */
 /*==============================================================*/
 create unique index STATION_PK on STATION (
-STATIONID
+ENDSTATIONID
 );
 
 /*==============================================================*/
@@ -232,8 +232,8 @@ ZONEID
 );
 
 alter table JOURNEY
-   add constraint FK_JOURNEY_DESTINATI_STATION foreign key (STATIONID)
-      references STATION (STATIONID)
+   add constraint FK_JOURNEY_DESTINATI_STATION foreign key (ENDSTATIONID)
+      references STATION (ENDSTATIONID)
       on delete restrict on update restrict;
 
 alter table JOURNEY
@@ -247,8 +247,8 @@ alter table JOURNEY
       on delete restrict on update restrict;
 
 alter table JOURNEY
-   add constraint FK_JOURNEY_STARTSTAT_STATION foreign key (STATION_STATIONID)
-      references STATION (STATIONID)
+   add constraint FK_JOURNEY_STARTSTAT_STATION foreign key (STARTSTATIONID)
+      references STATION (ENDSTATIONID)
       on delete restrict on update restrict;
 
 alter table LINE
