@@ -5,8 +5,8 @@
 
 ----- insert four ticket card
 INSERT INTO ticketcard VALUES (1, 1, 9999999999, 'T');
-INSERT INTO ticketcard VALUES (2, 1, 9999999999, 'T');
-INSERT INTO ticketcard VALUES (3, 1, 9999999999, 'C');
+INSERT INTO ticketcard VALUES (2, 1, 1456416, 'T');
+INSERT INTO ticketcard VALUES (3, 1, 12316, 'C');
 INSERT INTO ticketcard VALUES (4, 1, 9999999999, 'C');
 
 ----- insert 4 journeys 	(at least two full price/reduced price,
