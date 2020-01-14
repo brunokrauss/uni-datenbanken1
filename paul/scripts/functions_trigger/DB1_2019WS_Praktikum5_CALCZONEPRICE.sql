@@ -1,19 +1,26 @@
 create or replace FUNCTION CALC_ZONE_PRICE(
   IN_COUNT_OF_STATIONS integer,
-  IN_CHILD_ADULT  CHAR,
+  IN_CHILD  BOOL,
   IN_ZONE_ID  integer)
 returns numeric
 as $function$
 declare 
-L_PRICE numeric;
+L_PRICE MONEY;
 L_MAXAMOUNTSTATIONS numeric;
 begin
-RAISE INFO 'CALC_ZONE_PRICE: Stations (%) (%)', IN_COUNT_OF_STATIONS, IN_CHILD_ADULT;
+RAISE INFO 'CALC_ZONE_PRICE: Stations (%) price is reduced (%)', IN_COUNT_OF_STATIONS, IN_CHILD;
 
+-- YOUR CODE HERE
+	if ( IN_CHILD )
+		THEN
+		SELECT zonepricereduced INTO L_PRICE FROM zone WHERE zoneid = IN_ZONE_ID ORDER BY zonepricereduced ASC LIMIT 1;
+		ELSE
+		SELECT zoneprice INTO L_PRICE FROM zone WHERE zoneid = IN_ZONE_ID ORDER BY zonepricereduced ASC LIMIT 1;
+	END IF;
+	L_PRICE := L_PRICE * IN_COUNT_OF_STATIONS;
 -- YOUR CODE HERE
    RETURN L_PRICE;
 
 end;
 $function$
 language plpgsql;
-
