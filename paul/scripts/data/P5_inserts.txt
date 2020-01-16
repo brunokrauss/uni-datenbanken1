@@ -1,0 +1,17 @@
+-- insert 4 tickets
+INSERT INTO ticketcard VALUES (100, null, 500, 'C')
+INSERT INTO ticketcard VALUES (101, null, 500, 'C');
+INSERT INTO ticketcard VALUES (102, 2, 290, 'T');
+INSERT INTO ticketcard VALUES (103, 1, 75, 'T');
+-- insert 5 journeys
+INSERT INTO journey VALUES ( 100, null, 'Tokyo Metro', 100, 9, '2020-01-15', false, 0);
+INSERT INTO journey VALUES ( 101, null, 'Japan Railway', 101, 20, '2020-01-15', true, 0);
+INSERT INTO journey VALUES ( 102, null, 'Tokyo Metro', 102, 5, '2020-01-15', false, 0);
+INSERT INTO journey VALUES ( 103, null, 'Japan Railway', 102, 17, '2020-01-15', false, 0);
+INSERT INTO journey VALUES ( 104, null, 'Tokyo Metro', 103, 13, '2020-01-15', true, 0);
+-- update 5 journeys with endstation
+UPDATE journey SET endstationid = 13 WHERE journeyid = 100;
+UPDATE journey SET endstationid = 21 WHERE journeyid = 101;
+UPDATE journey SET endstationid = 6 WHERE journeyid = 102;
+UPDATE journey SET endstationid = 16 WHERE journeyid = 103;
+UPDATE journey SET endstationid = 11 WHERE journeyid = 104;

@@ -17,11 +17,10 @@ BEGIN
   --YOUR CODE HERE
 	SELECT ticketcardbalance INTO L_CREDIT FROM ticketcard WHERE ticketid = IN_TICKET_ID;
 	IF ( L_CREDIT >= IN_MONEY )
-		THEN
+	THEN
 		update operator
 		set operatorbalance = operatorbalance + IN_MONEY
 		where operatorname = IN_OPERATOR_ID;
-		
 		update ticketcard
 		set ticketcardbalance = ticketcardbalance - IN_MONEY
 		where ticketid = IN_TICKET_ID;
