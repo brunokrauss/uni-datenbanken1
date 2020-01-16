@@ -6,23 +6,35 @@ RETURNS integer
 as $function$
 declare L_RESULT integer;
 declare L_ISCIRCLE boolean;
+declare L_LINE varchar;
 BEGIN
 RAISE INFO 'COUNT_STATIONS: from(%) to (%) ',IN_STARTSTATION,IN_ENDSTATION; 
 
 -- YOUR CODE HERE
-	-- there could be an if condition to check weather the stations are even on the same line
-	-- probably thats what IN_LINEID is for
+	L_LINE := (select linename from station where stationid = IN_STARTSTATION);
+
 	IN_STARTSTATION := (select stationnumber from station where stationid = IN_STARTSTATION);
 	IN_ENDSTATION := (select stationnumber from station where stationid = IN_ENDSTATION);
-	L_RESULT := ABS( IN_STARTSTATION - IN_ENDSTATION );
-	IF ( L_RESULT = 0 )
+
+	--RAISE INFO 'COUNT_STATIONS: line is (%) ', L_LINE; 
+	IF (L_LINE = 'JR Yamanote')
+	THEN
+	--RAISE INFO 'this is the jr jamanote if condition hit'; 
+	-- jr yamanote line
+	L_RESULT := LEAST( 30 -IN_STARTSTATION, 30 -IN_ENDSTATION); -- get the smallest value between the two stations in the circle line
+		IF ( L_RESULT = 0 ) -- at least full round trip on yamanote line
 		THEN
-		L_ISCIRCLE := true;
-		L_RESULT := 30;
+			L_ISCIRCLE := true;
+			L_RESULT := 30;
+		END IF;
+	ELSE
+		L_RESULT := ABS( GREATEST(IN_STARTSTATION,IN_ENDSTATION) - LEAST(IN_STARTSTATION,IN_ENDSTATION) );
 	END IF;
+
 -- YOUR CODE HERE
    RETURN L_RESULT;
    
 END;
+
 $function$
 LANGUAGE plpgsql;
