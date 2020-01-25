@@ -11,10 +11,10 @@ BEGIN
 RAISE INFO 'COUNT_STATIONS: from(%) to (%) ',IN_STARTSTATION,IN_ENDSTATION; 
 
 -- YOUR CODE HERE
-	L_LINE := (select linename from station where stationid = IN_STARTSTATION);
+	L_LINE := (select linename from station where endstationid = IN_STARTSTATION);
 
-	IN_STARTSTATION := (select stationnumber from station where stationid = IN_STARTSTATION);
-	IN_ENDSTATION := (select stationnumber from station where stationid = IN_ENDSTATION);
+	IN_STARTSTATION := (select stationnumber from station where endstationid = IN_STARTSTATION);
+	IN_ENDSTATION := (select stationnumber from station where endstationid = IN_ENDSTATION);
 
 	--RAISE INFO 'COUNT_STATIONS: line is (%) ', L_LINE; 
 	IF (L_LINE = 'JR Yamanote')
