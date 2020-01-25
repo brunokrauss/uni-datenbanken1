@@ -1,0 +1,138 @@
+package praktikum06;
+
+import java.sql.*;
+import java.util.*;
+
+/**
+ *
+ * @author Inge
+ * Diese Klasse enthält Beispiele für alle wichtigen Statement-Interfaces 
+ * der SQL-API auf der Datenbank flugdb der Vorlesung sowie Beispiele 
+ * für Objekte vom Typ ResultSetMetaData
+ * 
+ * 2. Connection aufbauen (für Studenten auf dem fbi-postgreSQL-Server): 
+ * mydatabase = st-Account
+ * myuser     = st-Account 
+ * mypassword = st-Account-Passwort (oder Zugang über Team-Account)
+ * 
+ */
+
+public class Main {
+
+    static private Connection con;
+    static private Statement stmt;
+    static private String query;
+    static private PreparedStatement pStmt;
+    static private CallableStatement cStmt;
+    static private ResultSet rs;
+
+    public static void main(String args[])
+            throws SQLException {
+
+        // 1. Treiber-Klasse für postgresql-Driver laden und registrieren
+        String driverClass =
+                "org.postgresql.Driver";
+        try {
+            Class.forName(driverClass);
+            System.out.println("Treiber-Klasse geladen");
+        } catch (ClassNotFoundException exc) {
+            System.out.println("c1: " + exc.getMessage());
+            System.exit(1);
+        }
+
+        // Wieviele Elemente sind derzeit bei der Klasse DriverManager
+        // registriert?
+        Enumeration<Driver> e = DriverManager.getDrivers();
+        while (e.hasMoreElements()) {
+            System.out.println("Beim DriverManager registriert: "
+                    + e.nextElement() + "\n");
+        }
+
+        // 2. Connection aufbauen
+        try {
+            //String url = "jdbc:postgresql:@localhost:5433/tokyo"; Port wird ignorriert - laut Doku falsches Format
+        	String url = "jdbc:postgresql://localhost:5433/tokyo";
+            con = DriverManager.getConnection(url, "postgres", "Obx5r5RkFgK6y5EeyCdt");
+            System.out.println("Jetzt ist die Connection da");
+            // Transaktionsmanagement: AutoCommit off
+            con.setAutoCommit(false);
+            // Isolationlevel setzen
+            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            con.commit();
+        } catch (SQLException exc) {
+            System.out.println("c2: " + exc.getMessage());
+        }
+
+        // 3. SQL-Anweisungen ausführen
+        // Javavariablen zum Auslesen der Daten
+        String operatorname;
+
+        try {
+            stmt = con.createStatement();
+            query = "Select * from operator";
+
+            // PILOT-Tabelle lesen
+            rs = stmt.executeQuery(query);
+            System.out.println(rs.toString());
+//            while (rs.next()) {
+//                vPerNr = rs.getString(1);
+//                vPStd = rs.get;
+//                System.out.println("Ergebnis: " + vPerNr + " " + vPStd);
+//            }
+            ResultSetMetaData rsm = rs.getMetaData();
+            int anzCol = rsm.getColumnCount();
+            for (int i = 1; i <= anzCol; i++) {
+                String cn = rsm.getColumnName(i);
+                String ctn = rsm.getColumnTypeName(i);
+                System.out.println(cn + " " + ctn);
+            }
+            rs.close();
+        } catch (SQLException exc) {
+            System.out.println("c3: " + exc.getMessage());
+        }
+/*
+        // 4. PreparedStatement
+        try {
+            pStmt = con.prepareStatement("insert into flug values (?,?,?,?,?)");
+            pStmt.setString(1, "LH-999");
+            pStmt.setString(2, "Frankfurt");
+            pStmt.setString(3, "Hamburg");
+            pStmt.setDouble(4, 0.5);
+            pStmt.setInt(5, 400);
+            pStmt.executeUpdate();
+            con.commit();
+            System.out.println("Insert gemacht");
+        } catch (SQLException exc) {
+            con.rollback();
+            System.out.println("c4: " + exc.getMessage());
+        }
+
+        // 5. StoredProcedure-Aufruf (CallableStatement) 
+        try {
+            cStmt = con.prepareCall("{call neugehalt(?,?)}");
+            cStmt.setDouble(1, 1.01);
+            cStmt.setDouble(2, 1.02);
+            cStmt.execute();
+            con.commit();
+
+            while (true) {
+                System.out.println("Procedure-Call " + cStmt.getUpdateCount());
+                cStmt.getMoreResults();
+                if (cStmt.getUpdateCount() == -1) {
+                    break;
+                }
+            }
+        } catch (SQLException exc) {
+            con.rollback();
+            System.out.println("c5: " + exc.getMessage());
+        }*/
+
+        // 6. Connection schliessen
+        try {
+            con.close();
+        } catch (SQLException exc) {
+            System.out.println("close connection: " + exc.getMessage());
+        }
+    }
+
+}

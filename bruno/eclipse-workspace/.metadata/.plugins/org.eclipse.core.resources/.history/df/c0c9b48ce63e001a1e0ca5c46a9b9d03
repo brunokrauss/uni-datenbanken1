@@ -1,0 +1,140 @@
+package praktikum06;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.*;
+import java.util.*;
+
+/**
+ *
+ * @author Inge
+ * Diese Klasse enthält Beispiele für alle wichtigen Statement-Interfaces 
+ * der SQL-API auf der Datenbank flugdb der Vorlesung sowie Beispiele 
+ * für Objekte vom Typ ResultSetMetaData
+ * 
+ * 2. Connection aufbauen (für Studenten auf dem fbi-postgreSQL-Server): 
+ * mydatabase = st-Account
+ * myuser     = st-Account 
+ * mypassword = st-Account-Passwort (oder Zugang über Team-Account)
+ * 
+ */
+
+public class Main {
+
+    private Connection con;
+    private Statement stmt;
+    private String query;
+    private PreparedStatement pStmt;
+    private CallableStatement cStmt;
+    private ResultSet rs;
+    private int maxTicketId;
+    
+
+    public static void main(String args[]) throws SQLException {
+    	Main m = new Main();
+    	while(true) {
+    		int amount = m.consoleUI();
+    		
+    		for (int i = 0; i < 0)
+    		m.createTickets());
+    	}
+    }
+    
+    private int consoleUI() {
+    	int ticketCount = 0;
+    	BufferedReader bin = new BufferedReader(
+    		new InputStreamReader(System.in));
+    	System.out.println("Bitte Anzahl eingeben: ");
+    	try {
+    		ticketCount = Integer.parseInt(bin.readLine());
+    	} catch (Exception e) {
+    		System.out.println("Fehlerhafte Eingabe! " + e.toString());
+    	}
+    	
+    	return ticketCount;
+    }
+
+	private void createTicket() throws SQLException {
+
+        // 1. Treiber-Klasse für postgresql-Driver laden und registrieren
+        String driverClass =
+                "org.postgresql.Driver";
+        try {
+            Class.forName(driverClass);
+            System.out.println("Treiber-Klasse geladen");
+        } catch (ClassNotFoundException exc) {
+            System.out.println("c1: " + exc.getMessage());
+            System.exit(1);
+        }
+
+        // Wieviele Elemente sind derzeit bei der Klasse DriverManager
+        // registriert?
+        Enumeration<Driver> e = DriverManager.getDrivers();
+        while (e.hasMoreElements()) {
+            System.out.println("Beim DriverManager registriert: "
+                    + e.nextElement() + "\n");
+        }
+
+        // 2. Connection aufbauen
+        try {
+        	String url = "jdbc:postgresql://localhost:5433/tokyo";
+            con = DriverManager.getConnection(url, "postgres", "Obx5r5RkFgK6y5EeyCdt");
+            System.out.println("Connected with database server");
+            // Transaktionsmanagement: AutoCommit off
+            con.setAutoCommit(false);
+            // Isolationlevel setzen
+            con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+            con.commit();
+        } catch (SQLException exc) {
+            System.out.println("c2: " + exc.getMessage());
+        }
+        
+        // 3. SQL-Anweisungen ausführen
+        // Javavariablen zum Auslesen der Daten
+
+        try {
+            stmt = con.createStatement();
+            query = "Select max(ticketid) from ticketcard";
+
+            // PILOT-Tabelle lesen
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                maxTicketId = rs.getInt(1);
+                System.out.println("Höchste Ticket ID: " + maxTicketId);
+            }
+            rs.close();
+        } catch (SQLException exc) {
+            System.out.println("c3: " + exc.getMessage());
+            throw new SQLException(exc);
+        }
+        
+        // 4. PreparedStatement
+        try {
+            pStmt = con.prepareStatement("insert into ticketcard values (?,?,?,?)");
+            pStmt.setInt(1, ++maxTicketId);
+            if(maxTicketId % 2 == 0) {
+            	pStmt.setNull(2, Types.INTEGER);
+                pStmt.setString(4, "C");;
+            } else {
+            	pStmt.setInt(2, 1);
+                pStmt.setString(4, "T");;
+            }
+            pStmt.setInt(3, 75);
+            pStmt.executeUpdate();
+            con.commit();
+            System.out.println("Insert gemacht");
+        } catch (SQLException exc) {
+            con.rollback();
+            System.out.println("c4: " + exc.getMessage());
+        }
+
+        // 6. Connection schliessen
+        try {
+            con.close();
+        } catch (SQLException exc) {
+            System.out.println("close connection: " + exc.getMessage());
+        }
+	}
+}
+
